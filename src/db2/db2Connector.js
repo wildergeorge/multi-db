@@ -35,8 +35,26 @@ async function get(db2Model, db2ConnectionString, db2Field, db2Value){
 
 async function create(db2Model, db2ConnectionString){
 
-  console.log('oink')
+  try{
+
+    let queryObjectCreate = db2QueryBuilder.create(db2Model, db2Helper.getPrimaryKey(db2Model.getProperties()));
+
+    if(db2Helper.db2TypeValidationInsert(db2Model).err == false){
+
+      //let db2Object = await db2QueryRunner.db2ExecuteNonQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryObjectCreate.query, queryObjectCreate.data);
+    }else{
+
+      throw db2Helper.db2TypeValidationInsert(db2Model).errText;
+    }
+  }catch(multidbException){
+
+    console.log(multidbException)
+  }
+}
+
+async function remove(db2Model){
+
   console.log(db2Model)
 }
 
-module.exports = {getById: getById, get: get, create: create};
+module.exports = {getById: getById, get: get, create: create, remove: remove};

@@ -38,6 +38,11 @@ class MultiDB{
 
     let mappedObject = connectors[databases[this.getDatabase()]].create(this, connectionInfo[this.getDatabase()]);
   }
+
+  remove(){
+
+    let mappedObject = connectors[databases[this.getDatabase()]].remove(this);
+  }
 }
 
 module.exports = MultiDB;
