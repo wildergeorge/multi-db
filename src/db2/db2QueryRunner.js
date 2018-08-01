@@ -94,7 +94,7 @@ function db2ExecuteNonQuery(db2ConnectionString, db2Query, db2Variables){
         stmt.executeNonQuery(db2Variables, (errExecute, result) => {
 
           if(errExecute){
-
+            
             conn.closeSync();
             db2ReturnObject.err = errExecute;
             db2ReturnObject.errOrigin = 'db2QueryRunner.db2ExecuteQueryNonQuery'
@@ -103,7 +103,7 @@ function db2ExecuteNonQuery(db2ConnectionString, db2Query, db2Variables){
           }
 
           conn.close(() => {
-            
+
             resolve(db2ReturnObject);
           });
         });

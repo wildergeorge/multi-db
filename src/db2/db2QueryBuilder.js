@@ -44,4 +44,34 @@ function create(db2Model, db2PrimaryKey){
   return {query: db2CreateQuery, data: aDb2Values};
 }
 
-module.exports = {getById: getById, get: get, create: create};
+function remove(db2Schema, db2Table, db2PrimaryKey){
+
+  let db2RemoveQuery = 'delete from ' + db2Schema + '.' + db2Table + ' where ' + db2PrimaryKey + ' = ?';
+
+  return db2RemoveQuery;
+}
+
+function update(db2Model, db2PrimaryKey){
+
+  let aFields = [];
+  let aVariables = [];
+  let aValues = [];
+
+  for(let prop in db2Model){
+
+    if(prop != db2PrimaryKey){
+
+      aFields.push(prop);
+      aVariables.push('?');
+      aValues.push(db2Model[prop]);
+    }
+  }
+
+  aValues.push(db2Model[db2PrimaryKey]);
+
+  let db2UpdateQuery = 'update ' + db2Model.getSchema() + '.' + db2Model.getTableName() ;
+
+  return {query: db2UpdateQuery, data: aValues};
+}
+
+module.exports = {getById: getById, get: get, create: create, remove: remove, update: update};

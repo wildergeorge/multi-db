@@ -41,7 +41,7 @@ async function create(db2Model, db2ConnectionString){
 
     if(db2Helper.db2TypeValidationInsert(db2Model).err == false){
 
-      //let db2Object = await db2QueryRunner.db2ExecuteNonQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryObjectCreate.query, queryObjectCreate.data);
+      let db2Object = await db2QueryRunner.db2ExecuteNonQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryObjectCreate.query, queryObjectCreate.data);
     }else{
 
       throw db2Helper.db2TypeValidationInsert(db2Model).errText;
@@ -52,9 +52,31 @@ async function create(db2Model, db2ConnectionString){
   }
 }
 
-async function remove(db2Model){
+async function remove(db2Model, db2ConnectionString){
 
-  console.log(db2Model)
+  let queryRemove = db2QueryBuilder.remove(db2Model.getSchema(), db2Model.getTableName(), db2Helper.getPrimaryKey(db2Model.getProperties()));
+
+  try{
+
+    let db2Object = await db2QueryRunner.db2ExecuteNonQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryRemove, [db2Model[db2Helper.getPrimaryKey(db2Model.getProperties())]]);
+  }catch(err){
+
+    console.log(err)
+  }
 }
 
-module.exports = {getById: getById, get: get, create: create, remove: remove};
+async function update(db2Model, db2ConnectionString){
+
+  let queryObjectUpdate = db2QueryBuilder.update(db2Model, db2Helper.getPrimaryKey(db2Model.getProperties()));
+  console.log(queryObjectUpdate)
+
+  try{
+
+    //let db2Object = await db2QueryRunner.db2ExecuteNonQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryObjectUpdate.query, queryObjectUpdate.data);
+  }catch(e){
+
+    console.log(e)
+  }
+}
+
+module.exports = {getById: getById, get: get, create: create, remove: remove, update: update};

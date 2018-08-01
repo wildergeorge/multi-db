@@ -5,7 +5,7 @@ var db2Connector;
 
 class MultiDB{
 
-  constructor(cfg){
+  constructor(cfg, decryptPassword){
 
     for(var con in cfg){
 
@@ -41,7 +41,12 @@ class MultiDB{
 
   remove(){
 
-    let mappedObject = connectors[databases[this.getDatabase()]].remove(this);
+    let mappedObject = connectors[databases[this.getDatabase()]].remove(this, connectionInfo[this.getDatabase()]);
+  }
+
+  update(){
+
+    let mappedObject = connectors[databases[this.getDatabase()]].update(this, connectionInfo[this.getDatabase()]);
   }
 }
 
