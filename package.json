@@ -1,10 +1,14 @@
 {
-  "name": "multi-db",
+  "name": "multi-db-tool",
   "version": "1.0.0",
   "description": "DB Helper for Nodejs",
-  "main": "multidb.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wildergeorge/multi-db.git"
   },
   "keywords": [
     "DB2",

@@ -1,4 +1,4 @@
-#Module for working with multiple DB2 Database Connections
+# Module for working with multiple DB2 Database Connections
 
 * Still in developing state
 * Supports basic functions using Active Record Style for DB2
@@ -14,13 +14,13 @@ Module is working with prepared statements to prevent sql injection.
 __How to use:__
 
 ```javascript
-var multiDB = require('multi-db');
+var multiDB = require('multi-db-tool');
 var mutli = new multiDB(require('path to config file ..', 'passphrase for decrypting properties ...')
 ```
 
 Note: Decrpyting is not implemented yet, should be set to null
 
-###Example for config file:
+### Example for config file:
 ```javascript
 var config = {
 
@@ -47,7 +47,7 @@ var config = {
 module.exports = config;
 ```
 
-###Example for Model file:
+### Example for Model file:
 ```javascript
 var MultiDB = require('multi-db');
 
@@ -105,7 +105,7 @@ module.exports = Benutzer;
 ```
 Note: getDatabase has to match with a Database in config file
 
-###Using the module with promises
+### Using the module with promises
 ```javascript
 var test = new Benutzer();
 
@@ -115,7 +115,7 @@ test.getById(10).then((data) => {
 });
 ```
 
-###Using the module with await
+### Using the module with await
 ```javascript
 let test = new Benutzer();
 let test2 = await test.getById(10)
