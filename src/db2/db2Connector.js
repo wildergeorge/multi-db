@@ -59,7 +59,7 @@ async function remove(db2Model, db2ConnectionString){
   try{
 
     let db2Object = await db2QueryRunner.db2ExecuteNonQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryRemove, [db2Model[db2Helper.getPrimaryKey(db2Model.getProperties())]]);
-  }catch(err){
+  }catch(multidbException){
 
     console.log(err)
   }
@@ -72,7 +72,7 @@ async function update(db2Model, db2ConnectionString){
 
   try{
 
-    //let db2Object = await db2QueryRunner.db2ExecuteNonQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryObjectUpdate.query, queryObjectUpdate.data);
+    let db2Object = await db2QueryRunner.db2ExecuteNonQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryObjectUpdate.query, queryObjectUpdate.data);  
   }catch(e){
 
     console.log(e)

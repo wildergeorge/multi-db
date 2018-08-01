@@ -1,7 +1,7 @@
 {
   "name": "multi-db-tool",
-  "version": "1.0.0",
-  "description": "DB Helper for Nodejs",
+  "version": "1.0.2",
+  "description": "DB Helper for Nodejs: DB2",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,7 +12,8 @@
   },
   "keywords": [
     "DB2",
-    "DB-Mapping"
+    "DB-Mapping",
+    "IBM"
   ],
   "author": "Friedrich Heist",
   "license": "MIT",

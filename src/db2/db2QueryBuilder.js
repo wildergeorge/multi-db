@@ -52,24 +52,32 @@ function remove(db2Schema, db2Table, db2PrimaryKey){
 }
 
 function update(db2Model, db2PrimaryKey){
-
-  let aFields = [];
-  let aVariables = [];
+  //console.log(db2Model.getProperties())
+  //console.log('----------------------')
   let aValues = [];
+  let bFirst = true;
+  let db2UpdateQuery = 'update ' + db2Model.getSchema() + '.' + db2Model.getTableName() + ' set ';
 
   for(let prop in db2Model){
 
     if(prop != db2PrimaryKey){
 
-      aFields.push(prop);
-      aVariables.push('?');
       aValues.push(db2Model[prop]);
+
+      if(bFirst){
+
+        bFirst = false;
+      }else{
+
+        db2UpdateQuery += ', ';
+      }
+
+      db2UpdateQuery += prop + ' = ? ';
     }
   }
 
+  db2UpdateQuery += ' where ' + db2PrimaryKey + ' = ?';
   aValues.push(db2Model[db2PrimaryKey]);
-
-  let db2UpdateQuery = 'update ' + db2Model.getSchema() + '.' + db2Model.getTableName() ;
 
   return {query: db2UpdateQuery, data: aValues};
 }
