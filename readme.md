@@ -122,3 +122,10 @@ let test2 = await test.getById(10)
 ```
 
 Note: Can only be used in async functions!
+
+### Using Model generator
+```javascript
+var db2Tool = require('./node_modules/multi-db-tool/src/tools/db2ModelGenerator.js')
+
+db2Tool.generateDB2Model(require('... path to db config file'), 'name of db in config file', '..schema', '..table name', '.. sequence name for primary fields', '..path to write file');
+```

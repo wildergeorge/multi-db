@@ -1,5 +1,6 @@
 var db2Helper = require('../db2/db2Helper.js');
 var db2QueryRunner = require('../db2/db2QueryRunner.js');
+var fs = require('fs');
 
 async function generateDB2Model(dbCfg, database, schema, table, db2Sequence, saveTo){
 
@@ -107,7 +108,11 @@ function generateModelString(db2Data, db2Database, db2Table, db2Schema, db2Seque
 
 function writeDb2Model(db2ModeString, fileName, path){
 
-  
+  fs.writeFile(path + fileName + '.js', db2ModeString, (err) => {
+    if (err) throw err;
+
+    console.log('The file has been saved!');
+  });
 }
 
 module.exports = {generateDB2Model: generateDB2Model}

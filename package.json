@@ -1,6 +1,6 @@
 {
   "name": "multi-db-tool",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "DB Helper for Nodejs: DB2",
   "main": "index.js",
   "scripts": {
