@@ -55,6 +55,7 @@ function db2ExecuteQuery(db2ConnectionString, db2Query, db2Variables){
             conn.close(() => {
 
               db2ReturnObject.data = data
+              result.closeSync();
               resolve(db2ReturnObject);
             });
           });
@@ -104,6 +105,7 @@ function db2ExecuteNonQuery(db2ConnectionString, db2Query, db2Variables){
 
           conn.close(() => {
 
+            result.closeSync();
             resolve(db2ReturnObject);
           });
         });
