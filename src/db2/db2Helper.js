@@ -14,7 +14,7 @@ function getPrimaryKey(db2ModelProperties){
 }
 
 function db2BuildConnectionString(db2ConnectionData){
-
+  
   var aDb2Connection = [];
 
   for(var db2Part in db2ConnectionData){
