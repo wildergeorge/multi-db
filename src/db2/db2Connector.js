@@ -7,11 +7,11 @@ async function getById(db2Model, db2ConnectionString, id){
 
   let queryGetById = db2QueryBuilder.getById(db2Model.getSchema(), db2Model.getTableName(), db2Helper.getPrimaryKey(db2Model.getProperties()));
 
-  let db2Object = await db2QueryRunner.db2ExecuteQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryGetById, [id]);
+  let db2Object = await db2QueryRunner.db2ExecuteQueryFirst(db2Helper.db2BuildConnectionString(db2ConnectionString), queryGetById, [id]);
 
   if(db2Object.err == undefined){
 
-    return db2Mapper.db2MapDataToClass(db2Model, db2Object);
+    return db2Mapper.db2MapDataToClassFirst(db2Model, db2Object);
   }else{
 
     return db2Object
@@ -26,7 +26,14 @@ async function get(db2Model, db2ConnectionString, db2Field, db2Value){
 
   if(db2Object.err == undefined){
 
-    return db2Mapper.db2MapDataToClass(db2Model, db2Object);
+    let aDb2Objects = [];
+
+    for(let i = 0; i < db2Object.data.length; i++){
+
+      aDb2Objects.push(db2Mapper.db2MapDataToClass(Object.assign(Object.create(db2Model), db2Model), db2Object.data[i]))
+    }
+
+    return aDb2Objects;
   }else{
 
     return db2Object
@@ -72,7 +79,7 @@ async function update(db2Model, db2ConnectionString){
 
   try{
 
-    let db2Object = await db2QueryRunner.db2ExecuteNonQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryObjectUpdate.query, queryObjectUpdate.data);  
+    let db2Object = await db2QueryRunner.db2ExecuteNonQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryObjectUpdate.query, queryObjectUpdate.data);
   }catch(e){
 
     console.log(e)

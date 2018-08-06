@@ -7,6 +7,7 @@
   * get(field, value)
   * create()
   * remove()
+  * update()
 * Uses connection pooling of official db2 module
 
 Module is working with prepared statements to prevent sql injection.
