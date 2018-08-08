@@ -31,7 +31,28 @@ class MultiDB{
 
     let mappedObject = connectors[databases[this.getDatabase()]].get(this, connectionInfo[this.getDatabase()], field, value);
 
-    return mappedObject
+    return mappedObject;
+  }
+
+  getLikeRight(field, value){
+
+    let mappedObject = connectors[databases[this.getDatabase()]].getLikeRight(this, connectionInfo[this.getDatabase()], field, value);
+
+    return mappedObject;
+  }
+
+  getLikeLeft(field, value){
+
+    let mappedObject = connectors[databases[this.getDatabase()]].getLikeLeft(this, connectionInfo[this.getDatabase()], field, value);
+
+    return mappedObject;
+  }
+
+  getLikeAll(field, value){
+
+    let mappedObject = connectors[databases[this.getDatabase()]].getLikeAll(this, connectionInfo[this.getDatabase()], field, value);
+
+    return mappedObject;
   }
 
   create(){

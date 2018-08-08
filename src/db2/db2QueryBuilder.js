@@ -12,6 +12,13 @@ function get(db2Schema, db2Table, db2Field){
   return db2GetQuery;
 }
 
+function getLike(db2Schema, db2Table, db2Field){
+
+  let db2GetQuery = 'select * from ' + db2Schema + '.' + db2Table + ' where ' + db2Field + ' like ?';
+
+  return db2GetQuery;
+}
+
 function create(db2Model, db2PrimaryKey){
 
   let db2CreateQuery;
@@ -82,4 +89,4 @@ function update(db2Model, db2PrimaryKey){
   return {query: db2UpdateQuery, data: aValues};
 }
 
-module.exports = {getById: getById, get: get, create: create, remove: remove, update: update};
+module.exports = {getById: getById, get: get, create: create, remove: remove, update: update, getLike: getLike};

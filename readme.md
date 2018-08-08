@@ -8,6 +8,9 @@
   * create()
   * remove()
   * update()
+  * getLikeALL(field, value) adds Wildcards around value
+  * getLikeRight(field, value) adds Wildcard on the right side of value
+  * getLikeLeft(field, value) adds Wildcard on the left side of value
 * Uses connection pooling of official db2 module
 
 Module is working with prepared statements to prevent sql injection.

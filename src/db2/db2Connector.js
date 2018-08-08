@@ -40,6 +40,72 @@ async function get(db2Model, db2ConnectionString, db2Field, db2Value){
   }
 }
 
+async function getLikeRight(db2Model, db2ConnectionString, db2Field, db2Value){
+
+  let queryGet = db2QueryBuilder.getLike(db2Model.getSchema(), db2Model.getTableName(), db2Field);
+
+  let db2Object = await db2QueryRunner.db2ExecuteQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryGet, [db2Value + '%']);
+
+  if(db2Object.err == undefined){
+
+    let aDb2Objects = [];
+
+    for(let i = 0; i < db2Object.data.length; i++){
+
+      aDb2Objects.push(db2Mapper.db2MapDataToClass(Object.assign(Object.create(db2Model), db2Model), db2Object.data[i]))
+    }
+
+    return aDb2Objects;
+  }else{
+
+    return db2Object
+  }
+}
+
+async function getLikeLeft(db2Model, db2ConnectionString, db2Field, db2Value){
+
+  let queryGet = db2QueryBuilder.getLike(db2Model.getSchema(), db2Model.getTableName(), db2Field);
+
+  let db2Object = await db2QueryRunner.db2ExecuteQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryGet, ['%' + db2Value]);
+  
+  if(db2Object.err == undefined){
+
+    let aDb2Objects = [];
+
+    for(let i = 0; i < db2Object.data.length; i++){
+
+      aDb2Objects.push(db2Mapper.db2MapDataToClass(Object.assign(Object.create(db2Model), db2Model), db2Object.data[i]))
+    }
+
+    return aDb2Objects;
+  }else{
+
+    return db2Object
+  }
+}
+
+async function getLikeAll(db2Model, db2ConnectionString, db2Field, db2Value){
+
+  let queryGet = db2QueryBuilder.getLike(db2Model.getSchema(), db2Model.getTableName(), db2Field);
+
+  let db2Object = await db2QueryRunner.db2ExecuteQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryGet, ['%' + db2Value + '%']);
+
+  if(db2Object.err == undefined){
+
+    let aDb2Objects = [];
+
+    for(let i = 0; i < db2Object.data.length; i++){
+
+      aDb2Objects.push(db2Mapper.db2MapDataToClass(Object.assign(Object.create(db2Model), db2Model), db2Object.data[i]))
+    }
+
+    return aDb2Objects;
+  }else{
+
+    return db2Object
+  }
+}
+
 async function create(db2Model, db2ConnectionString){
 
   try{
@@ -75,7 +141,6 @@ async function remove(db2Model, db2ConnectionString){
 async function update(db2Model, db2ConnectionString){
 
   let queryObjectUpdate = db2QueryBuilder.update(db2Model, db2Helper.getPrimaryKey(db2Model.getProperties()));
-  console.log(queryObjectUpdate)
 
   try{
 
@@ -86,4 +151,4 @@ async function update(db2Model, db2ConnectionString){
   }
 }
 
-module.exports = {getById: getById, get: get, create: create, remove: remove, update: update};
+module.exports = {getById: getById, get: get, create: create, remove: remove, update: update, getLikeAll: getLikeAll, getLikeRight: getLikeRight, getLikeLeft: getLikeLeft};

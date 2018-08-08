@@ -1,6 +1,5 @@
 function db2MapDataToClassFirst(db2Model, db2Object){
-  console.log(db2Model.getProperties())
-
+  
   for(var db2Prop in db2Model.getProperties()){
 
     if(db2Model.getProperties()[db2Prop].type === 'bigint'){
@@ -19,7 +18,7 @@ function db2MapDataToClassFirst(db2Model, db2Object){
 }
 
 function db2MapDataToClass(db2Model, db2Object){
-  
+
   for(var db2Prop in db2Model.getProperties()){
 
     if(db2Model.getProperties()[db2Prop].type === 'bigint'){
