@@ -4,14 +4,15 @@
 * Supports basic functions using Active Record Style for DB2
 * Implemented functions
   * getById(id)
-  * get(field, value)
+  * get(field, value, caseSensitive)
   * create()
   * remove()
   * update()
-  * getLikeALL(field, value) adds Wildcards around value
-  * getLikeRight(field, value) adds Wildcard on the right side of value
-  * getLikeLeft(field, value) adds Wildcard on the left side of value
+  * getLikeALL(field, value, caseSensitive) adds Wildcards around value
+  * getLikeRight(field, value, caseSensitive) adds Wildcard on the right side of value
+  * getLikeLeft(field, value, caseSensitive) adds Wildcard on the left side of value
 * Uses connection pooling of official db2 module
+* caseSensitive is of type boolean
 
 Module is working with prepared statements to prevent sql injection.
 

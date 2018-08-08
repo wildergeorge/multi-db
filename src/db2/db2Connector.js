@@ -18,9 +18,9 @@ async function getById(db2Model, db2ConnectionString, id){
   }
 }
 
-async function get(db2Model, db2ConnectionString, db2Field, db2Value){
+async function get(db2Model, db2ConnectionString, db2Field, db2Value, caseSensitive){
 
-  let queryGet = db2QueryBuilder.get(db2Model.getSchema(), db2Model.getTableName(), db2Field);
+  let queryGet = db2QueryBuilder.get(db2Model.getSchema(), db2Model.getTableName(), db2Field, caseSensitive);
 
   let db2Object = await db2QueryRunner.db2ExecuteQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryGet, [db2Value]);
 
@@ -40,9 +40,9 @@ async function get(db2Model, db2ConnectionString, db2Field, db2Value){
   }
 }
 
-async function getLikeRight(db2Model, db2ConnectionString, db2Field, db2Value){
+async function getLikeRight(db2Model, db2ConnectionString, db2Field, db2Value, caseSensitive){
 
-  let queryGet = db2QueryBuilder.getLike(db2Model.getSchema(), db2Model.getTableName(), db2Field);
+  let queryGet = db2QueryBuilder.getLike(db2Model.getSchema(), db2Model.getTableName(), db2Field, caseSensitive);
 
   let db2Object = await db2QueryRunner.db2ExecuteQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryGet, [db2Value + '%']);
 
@@ -62,12 +62,12 @@ async function getLikeRight(db2Model, db2ConnectionString, db2Field, db2Value){
   }
 }
 
-async function getLikeLeft(db2Model, db2ConnectionString, db2Field, db2Value){
+async function getLikeLeft(db2Model, db2ConnectionString, db2Field, db2Value, caseSensitive){
 
-  let queryGet = db2QueryBuilder.getLike(db2Model.getSchema(), db2Model.getTableName(), db2Field);
+  let queryGet = db2QueryBuilder.getLike(db2Model.getSchema(), db2Model.getTableName(), db2Field, caseSensitive);
 
   let db2Object = await db2QueryRunner.db2ExecuteQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryGet, ['%' + db2Value]);
-  
+
   if(db2Object.err == undefined){
 
     let aDb2Objects = [];
@@ -84,9 +84,9 @@ async function getLikeLeft(db2Model, db2ConnectionString, db2Field, db2Value){
   }
 }
 
-async function getLikeAll(db2Model, db2ConnectionString, db2Field, db2Value){
+async function getLikeAll(db2Model, db2ConnectionString, db2Field, db2Value, caseSensitive){
 
-  let queryGet = db2QueryBuilder.getLike(db2Model.getSchema(), db2Model.getTableName(), db2Field);
+  let queryGet = db2QueryBuilder.getLike(db2Model.getSchema(), db2Model.getTableName(), db2Field, caseSensitive);
 
   let db2Object = await db2QueryRunner.db2ExecuteQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryGet, ['%' + db2Value + '%']);
 

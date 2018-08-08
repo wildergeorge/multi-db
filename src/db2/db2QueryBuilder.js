@@ -5,17 +5,33 @@ function getById(db2Schema, db2Table, db2PrimaryKey){
   return db2GetByIdQuery;
 }
 
-function get(db2Schema, db2Table, db2Field){
+function get(db2Schema, db2Table, db2Field, caseSensitive){
 
-  let db2GetQuery = 'select * from ' + db2Schema + '.' + db2Table + ' where ' + db2Field + ' = ?';
+  let db2GetQuery;
+
+  if(caseSensitive){
+
+    db2GetQuery = 'select * from ' + db2Schema + '.' + db2Table + ' where lower(' + db2Field + ') = lower(?)';
+  }else{
+
+    db2GetQuery = 'select * from ' + db2Schema + '.' + db2Table + ' where ' + db2Field + ' = ?';
+  }
 
   return db2GetQuery;
 }
 
-function getLike(db2Schema, db2Table, db2Field){
+function getLike(db2Schema, db2Table, db2Field, caseSensitive){
 
-  let db2GetQuery = 'select * from ' + db2Schema + '.' + db2Table + ' where ' + db2Field + ' like ?';
+  let db2GetQuery;
 
+  if(caseSensitive){
+
+    db2GetQuery = 'select * from ' + db2Schema + '.' + db2Table + ' where lower(' + db2Field + ') like lower(?)';
+  }else{
+
+    db2GetQuery = 'select * from ' + db2Schema + '.' + db2Table + ' where ' + db2Field + ' like ?';
+  }
+  
   return db2GetQuery;
 }
 

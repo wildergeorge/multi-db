@@ -27,30 +27,30 @@ class MultiDB{
     return mappedObject;
   }
 
-  get(field, value){
+  get(field, value, caseSensitive){
 
-    let mappedObject = connectors[databases[this.getDatabase()]].get(this, connectionInfo[this.getDatabase()], field, value);
-
-    return mappedObject;
-  }
-
-  getLikeRight(field, value){
-
-    let mappedObject = connectors[databases[this.getDatabase()]].getLikeRight(this, connectionInfo[this.getDatabase()], field, value);
+    let mappedObject = connectors[databases[this.getDatabase()]].get(this, connectionInfo[this.getDatabase()], field, value, caseSensitive);
 
     return mappedObject;
   }
 
-  getLikeLeft(field, value){
+  getLikeRight(field, value, caseSensitive){
 
-    let mappedObject = connectors[databases[this.getDatabase()]].getLikeLeft(this, connectionInfo[this.getDatabase()], field, value);
+    let mappedObject = connectors[databases[this.getDatabase()]].getLikeRight(this, connectionInfo[this.getDatabase()], field, value, caseSensitive);
 
     return mappedObject;
   }
 
-  getLikeAll(field, value){
+  getLikeLeft(field, value, caseSensitive){
 
-    let mappedObject = connectors[databases[this.getDatabase()]].getLikeAll(this, connectionInfo[this.getDatabase()], field, value);
+    let mappedObject = connectors[databases[this.getDatabase()]].getLikeLeft(this, connectionInfo[this.getDatabase()], field, value, caseSensitive);
+
+    return mappedObject;
+  }
+
+  getLikeAll(field, value, caseSensitive){
+
+    let mappedObject = connectors[databases[this.getDatabase()]].getLikeAll(this, connectionInfo[this.getDatabase()], field, value, caseSensitive);
 
     return mappedObject;
   }
