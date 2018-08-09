@@ -82,7 +82,7 @@ function db2ExecuteQuery(db2ConnectionString, db2Query, db2Variables){
       }
 
       conn.prepare(db2Query, (errPrepare, stmt) => {
-
+        
         if(errPrepare){
 
           conn.closeSync();
@@ -167,7 +167,6 @@ function db2ExecuteNonQuery(db2ConnectionString, db2Query, db2Variables){
 
           conn.close(() => {
 
-            result.closeSync();
             resolve(db2ReturnObject);
           });
         });

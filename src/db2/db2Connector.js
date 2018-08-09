@@ -111,7 +111,7 @@ async function create(db2Model, db2ConnectionString){
   try{
 
     let queryObjectCreate = db2QueryBuilder.create(db2Model, db2Helper.getPrimaryKey(db2Model.getProperties()));
-
+    
     if(db2Helper.db2TypeValidationInsert(db2Model).err == false){
 
       let db2Object = await db2QueryRunner.db2ExecuteNonQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryObjectCreate.query, queryObjectCreate.data);

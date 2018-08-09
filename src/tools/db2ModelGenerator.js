@@ -99,8 +99,8 @@ function generateModelString(db2Data, db2Database, db2Table, db2Schema, db2Seque
   aModelAsString.push(aColumns.join(','))
   aModelAsString.push('}\n\n return props;\n } \n\n');
   aModelAsString.push('getDatabase(){\n\n return \'' + db2Database + '\'\n}');
-  aModelAsString.push('\n\ngetTableName(){\n\n return \' ' + db2Table.toUpperCase() + '\'\n}');
-  aModelAsString.push('\n\ngetSchema(){\n\n return \' ' + db2Schema.toUpperCase() + '\'\n}\n\n}');
+  aModelAsString.push('\n\ngetTableName(){\n\n return \'' + db2Table.toUpperCase() + '\'\n}');
+  aModelAsString.push('\n\ngetSchema(){\n\n return \'' + db2Schema.toUpperCase() + '\'\n}\n\n}');
   aModelAsString.push('\n\nmodule.exports = ' + className);
 
   return(aModelAsString.join(''))

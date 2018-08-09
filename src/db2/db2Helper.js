@@ -14,7 +14,7 @@ function getPrimaryKey(db2ModelProperties){
 }
 
 function db2BuildConnectionString(db2ConnectionData){
-  
+
   var aDb2Connection = [];
 
   for(var db2Part in db2ConnectionData){
@@ -53,13 +53,15 @@ function db2TypeValidationInsert(db2Model){
         }
       }
 
-      if(db2Model.getProperties()[prop]['type'] != typeof checkValue){
+      if(db2Model.getProperties()[prop]['type'] == 'bigint' && typeof checkValue == 'number'){
+
+      }else if(db2Model.getProperties()[prop]['type'] != typeof checkValue && checkValue != undefined){
 
         // Type missmatch
         return {err: true, errText: 'Required field ' + prop + ' is of type: ' + typeof checkValue + ', expected: ' + db2Model.getProperties()[prop]['type'], errOrigin: 'db2Helper.db2TypeValidationInsert()'};
       }
 
-      if(db2Model.getProperties()[prop]['type'] == 'string'){
+      if(db2Model.getProperties()[prop]['type'] == 'string' && checkValue != undefined){
 
         if(checkValue.length > db2Model.getProperties()[prop]['size']){
 
