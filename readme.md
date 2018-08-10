@@ -11,6 +11,9 @@
   * getLikeALL(field, value, caseSensitive) adds Wildcards around value
   * getLikeRight(field, value, caseSensitive) adds Wildcard on the right side of value
   * getLikeLeft(field, value, caseSensitive) adds Wildcard on the left side of value
+* Functions for standard Queries
+  * manualQuery(db, query, [data]) data can be empty, prepared statement is used
+  * manualNonQuery(db, query, [data]) data can be empty, prepared statement is used
 * Uses connection pooling of official db2 module
 * caseSensitive is of type boolean
 
@@ -127,6 +130,18 @@ let test2 = await test.getById(10)
 ```
 
 Note: Can only be used in async functions!
+
+### Using tool for standard queries
+```javascript
+var multiDB = require('multi-db-tool');
+var mutli = new multiDB(require('path to config file ..', null)
+
+multi.manualQuery('ip', 'select * from test.test where test_data = ?', ['test']).then((data) => {
+
+})
+
+let test = await multi.manualQuery('ip', 'select * from test.test where test_data = ?', ['test'])
+```
 
 ### Using Model generator
 ```javascript

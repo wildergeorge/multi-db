@@ -111,7 +111,7 @@ async function create(db2Model, db2ConnectionString){
   try{
 
     let queryObjectCreate = db2QueryBuilder.create(db2Model, db2Helper.getPrimaryKey(db2Model.getProperties()));
-    
+
     if(db2Helper.db2TypeValidationInsert(db2Model).err == false){
 
       let db2Object = await db2QueryRunner.db2ExecuteNonQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryObjectCreate.query, queryObjectCreate.data);
@@ -151,4 +151,24 @@ async function update(db2Model, db2ConnectionString){
   }
 }
 
-module.exports = {getById: getById, get: get, create: create, remove: remove, update: update, getLikeAll: getLikeAll, getLikeRight: getLikeRight, getLikeLeft: getLikeLeft};
+async function manualQuery(query, data, db2ConnectionString) {
+
+  let db2Object = await db2QueryRunner.db2ExecuteQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), query, data);
+  return db2Object;
+}
+
+async function manualNonQuery(query, data, db2ConnectionString) {
+
+  let db2Object = await db2QueryRunner.db2ExecuteNonQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), query, data);
+  return db2Object;
+}
+
+module.exports = {getById: getById,
+                  get: get, create: create,
+                  remove: remove,
+                  update: update,
+                  getLikeAll: getLikeAll,
+                  getLikeRight: getLikeRight,
+                  getLikeLeft: getLikeLeft,
+                  manualQuery: manualQuery,
+                  manualNonQuery: manualNonQuery};

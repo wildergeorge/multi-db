@@ -82,7 +82,7 @@ function db2ExecuteQuery(db2ConnectionString, db2Query, db2Variables){
       }
 
       conn.prepare(db2Query, (errPrepare, stmt) => {
-        
+
         if(errPrepare){
 
           conn.closeSync();
@@ -103,10 +103,15 @@ function db2ExecuteQuery(db2ConnectionString, db2Query, db2Variables){
             resolve(db2ReturnObject)
           }
 
+          if(result == undefined){
+
+            throw('Resultset is undefined. Check Database, Schema and Table maybe one of those is spelled incorrectly.')
+          }
+
           result.fetchAll((errFetch, data) => {
 
             if(errFetch){
-
+              console.log()
               conn.closeSync();
               db2ReturnObject.err = errFetch;
               db2ReturnObject.errOrigin = 'db2QueryRunner.db2ExecuteQuery'

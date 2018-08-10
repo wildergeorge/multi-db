@@ -69,6 +69,20 @@ class MultiDB{
 
     let mappedObject = connectors[databases[this.getDatabase()]].update(this, connectionInfo[this.getDatabase()]);
   }
+
+  async manualQuery(database, query, data){
+
+    let object = await connectors[databases[database]].manualQuery(query, data, connectionInfo[database]);
+
+    return object.data;
+  }
+
+  async manualNonQuery(database, query, data){
+
+    let object = await connectors[databases[database]].manualNonQuery(query, data, connectionInfo[database]);
+
+    return object.data;
+  }
 }
 
 module.exports = MultiDB;
