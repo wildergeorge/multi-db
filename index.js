@@ -11,7 +11,10 @@ class MultiDB{
 
       databases[con] = cfg[con].type;
       connectionInfo[con] = cfg[con];
+      console.log(cfg[con])
     }
+
+
 
     if (Object.values(databases).indexOf('DB2') > -1) {
 
