@@ -125,6 +125,27 @@ async function create(db2Model, db2ConnectionString){
   }
 }
 
+async function createGetById(db2Model, db2ConnectionString){
+
+  try{
+
+    let queryObjectCreate = db2QueryBuilder.createGetById(db2Model, db2Helper.getPrimaryKey(db2Model.getProperties()));
+
+    if(db2Helper.db2TypeValidationInsert(db2Model).err == false){
+
+      let db2Object = await db2QueryRunner.db2ExecuteQueryFirst(db2Helper.db2BuildConnectionString(db2ConnectionString), queryObjectCreate.query, queryObjectCreate.data);
+
+      return db2Mapper.db2MapDataToClassFirst(db2Model, db2Object);
+    }else{
+
+      throw db2Helper.db2TypeValidationInsert(db2Model).errText;
+    }
+  }catch(multidbException){
+
+    console.log(multidbException)
+  }
+}
+
 async function remove(db2Model, db2ConnectionString){
 
   let queryRemove = db2QueryBuilder.remove(db2Model.getSchema(), db2Model.getTableName(), db2Helper.getPrimaryKey(db2Model.getProperties()));
@@ -157,6 +178,12 @@ async function manualQuery(query, data, db2ConnectionString) {
   return db2Object;
 }
 
+async function manualQueryFirst(query, data, db2ConnectionString) {
+
+  let db2Object = await db2QueryRunner.db2ExecuteQueryFirst(db2Helper.db2BuildConnectionString(db2ConnectionString), query, data);
+  return db2Object;
+}
+
 async function manualNonQuery(query, data, db2ConnectionString) {
 
   let db2Object = await db2QueryRunner.db2ExecuteNonQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), query, data);
@@ -171,4 +198,6 @@ module.exports = {getById: getById,
                   getLikeRight: getLikeRight,
                   getLikeLeft: getLikeLeft,
                   manualQuery: manualQuery,
-                  manualNonQuery: manualNonQuery};
+                  manualQueryFirst: manualQueryFirst,
+                  manualNonQuery: manualNonQuery,
+                  createGetById: createGetById};

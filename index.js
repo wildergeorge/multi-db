@@ -1,3 +1,6 @@
+var encryptor;
+var key;
+
 var connectors = {};
 var databases = {};
 var connectionInfo = {};
@@ -7,14 +10,26 @@ class MultiDB{
 
   constructor(cfg, decryptPassword){
 
+    if(decryptPassword != null && decryptPassword.length > 0){
+
+      key = decryptPassword
+      encryptor = require('simple-encryptor')(key);
+    }
+
     for(var con in cfg){
 
       databases[con] = cfg[con].type;
       connectionInfo[con] = cfg[con];
-      console.log(cfg[con])
+
+      if(key != null && key != ''){
+
+        if(connectionInfo[con].type = 'DB2'){
+
+          // Decrypt pwd field from DB2 config
+          connectionInfo[con].pwd = encryptor.decrypt(connectionInfo[con].pwd);
+        }
+      }
     }
-
-
 
     if (Object.values(databases).indexOf('DB2') > -1) {
 
@@ -63,6 +78,13 @@ class MultiDB{
     let mappedObject = connectors[databases[this.getDatabase()]].create(this, connectionInfo[this.getDatabase()]);
   }
 
+  createGetById(){
+
+    let mappedObject = connectors[databases[this.getDatabase()]].createGetById(this, connectionInfo[this.getDatabase()]);
+
+    return mappedObject;
+  }
+
   remove(){
 
     let mappedObject = connectors[databases[this.getDatabase()]].remove(this, connectionInfo[this.getDatabase()]);
@@ -76,6 +98,13 @@ class MultiDB{
   async manualQuery(database, query, data){
 
     let object = await connectors[databases[database]].manualQuery(query, data, connectionInfo[database]);
+
+    return object.data;
+  }
+
+  async manualQueryFirst(database, query, data){
+
+    let object = await connectors[databases[database]].manualQueryFirst(query, data, connectionInfo[database]);
 
     return object.data;
   }

@@ -31,7 +31,7 @@ function getLike(db2Schema, db2Table, db2Field, caseSensitive){
 
     db2GetQuery = 'select * from ' + db2Schema + '.' + db2Table + ' where ' + db2Field + ' like ?';
   }
-  
+
   return db2GetQuery;
 }
 
@@ -65,6 +65,17 @@ function create(db2Model, db2PrimaryKey){
   }
 
   return {query: db2CreateQuery, data: aDb2Values};
+}
+
+function createGetById(db2Model, db2PrimaryKey){
+
+  let db2CreateObj = create(db2Model, db2PrimaryKey)
+
+  let db2NewQuery = 'select * from final table (' + db2CreateObj.query + ')';
+
+  db2CreateObj.query = db2NewQuery;
+
+  return db2CreateObj;
 }
 
 function remove(db2Schema, db2Table, db2PrimaryKey){
@@ -105,4 +116,4 @@ function update(db2Model, db2PrimaryKey){
   return {query: db2UpdateQuery, data: aValues};
 }
 
-module.exports = {getById: getById, get: get, create: create, remove: remove, update: update, getLike: getLike};
+module.exports = {getById: getById, get: get, create: create, remove: remove, update: update, getLike: getLike, createGetById: createGetById};
