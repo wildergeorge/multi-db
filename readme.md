@@ -11,6 +11,7 @@
   * getLikeALL(field, value, caseSensitive) adds Wildcards around value
   * getLikeRight(field, value, caseSensitive) adds Wildcard on the right side of value
   * getLikeLeft(field, value, caseSensitive) adds Wildcard on the left side of value
+  * createGetById
 * Functions for standard Queries
   * manualQuery(db, query, [data]) data can be empty, prepared statement is used
   * manualNonQuery(db, query, [data]) data can be empty, prepared statement is used
