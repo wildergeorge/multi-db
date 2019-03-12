@@ -11,6 +11,8 @@
   * getLikeALL(field, value, caseSensitive) adds Wildcards around value
   * getLikeRight(field, value, caseSensitive) adds Wildcard on the right side of value
   * getLikeLeft(field, value, caseSensitive) adds Wildcard on the left side of value
+  * getAllUp(field) get Data from table sorted by field ascending
+  * getAllDown(field) get Data from table sorted by field descending
   * createGetById
 * Functions for standard Queries
   * manualQuery(db, query, [data]) data can be empty, prepared statement is used
