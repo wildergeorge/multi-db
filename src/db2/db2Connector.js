@@ -1,7 +1,7 @@
-var db2Helper = require('./db2Helper');
-var db2Mapper = require('./db2Mapper');
-var db2QueryBuilder = require('./db2QueryBuilder');
-var db2QueryRunner = require('./db2QueryRunner');
+let db2Helper = require('./db2Helper');
+let db2Mapper = require('./db2Mapper');
+let db2QueryBuilder = require('./db2QueryBuilder');
+let db2QueryRunner = require('./db2QueryRunner');
 
 async function getById(db2Model, db2ConnectionString, id){
 
@@ -89,6 +89,60 @@ async function getLikeAll(db2Model, db2ConnectionString, db2Field, db2Value, cas
   let queryGet = db2QueryBuilder.getLike(db2Model.getSchema(), db2Model.getTableName(), db2Field, caseSensitive);
 
   let db2Object = await db2QueryRunner.db2ExecuteQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryGet, ['%' + db2Value + '%']);
+
+  if(db2Object.err == undefined){
+
+    let aDb2Objects = [];
+
+    for(let i = 0; i < db2Object.data.length; i++){
+
+      aDb2Objects.push(db2Mapper.db2MapDataToClass(Object.assign(Object.create(db2Model), db2Model), db2Object.data[i]))
+    }
+
+    return aDb2Objects;
+  }else{
+
+    return db2Object
+  }
+}
+
+async function getAllUp(db2Model, db2ConnectionString, db2Field){
+
+  if(db2Field == undefined || db2Field == ''){
+
+    db2Field = db2Helper.getPrimaryKey(db2Model.getProperties());
+  }
+
+  let queryGetAllUp = db2QueryBuilder.getAll(db2Model.getSchema(), db2Model.getTableName(), db2Field, 'up');
+
+  let db2Object = await db2QueryRunner.db2ExecuteQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryGetAllUp, []);
+
+  if(db2Object.err == undefined){
+
+    let aDb2Objects = [];
+
+    for(let i = 0; i < db2Object.data.length; i++){
+
+      aDb2Objects.push(db2Mapper.db2MapDataToClass(Object.assign(Object.create(db2Model), db2Model), db2Object.data[i]))
+    }
+
+    return aDb2Objects;
+  }else{
+
+    return db2Object
+  }
+}
+
+async function getAllDown(db2Model, db2ConnectionString, db2Field){
+
+  if(db2Field == undefined || db2Field == ''){
+
+    db2Field = db2Helper.getPrimaryKey(db2Model.getProperties());
+  }
+
+  let queryGetAllUp = db2QueryBuilder.getAll(db2Model.getSchema(), db2Model.getTableName(), db2Field, 'down');
+
+  let db2Object = await db2QueryRunner.db2ExecuteQuery(db2Helper.db2BuildConnectionString(db2ConnectionString), queryGetAllUp, []);
 
   if(db2Object.err == undefined){
 
@@ -197,6 +251,8 @@ module.exports = {getById: getById,
                   getLikeAll: getLikeAll,
                   getLikeRight: getLikeRight,
                   getLikeLeft: getLikeLeft,
+                  getAllUp: getAllUp,
+                  getAllDown: getAllDown,
                   manualQuery: manualQuery,
                   manualQueryFirst: manualQueryFirst,
                   manualNonQuery: manualNonQuery,

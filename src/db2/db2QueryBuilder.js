@@ -35,6 +35,21 @@ function getLike(db2Schema, db2Table, db2Field, caseSensitive){
   return db2GetQuery;
 }
 
+function getAll(db2Schema, db2Table, db2Field, direction){
+
+  let db2GetAllQuery = 'select * from ' + db2Schema + '.' + db2Table + ' order by ' + db2Field;
+
+  if(direction == 'up'){
+
+    db2GetAllQuery = db2GetAllQuery + ' asc';
+  }else if(direction == 'down'){
+
+    db2GetAllQuery = db2GetAllQuery + ' desc';
+  }
+  
+  return db2GetAllQuery;
+}
+
 function create(db2Model, db2PrimaryKey){
 
   let db2CreateQuery;
@@ -116,4 +131,4 @@ function update(db2Model, db2PrimaryKey){
   return {query: db2UpdateQuery, data: aValues};
 }
 
-module.exports = {getById: getById, get: get, create: create, remove: remove, update: update, getLike: getLike, createGetById: createGetById};
+module.exports = {getById: getById, get: get, create: create, remove: remove, update: update, getLike: getLike, getAll: getAll, createGetById: createGetById};

@@ -1,10 +1,10 @@
-var encryptor;
-var key;
+let encryptor;
+let key;
 
-var connectors = {};
-var databases = {};
-var connectionInfo = {};
-var db2Connector;
+let connectors = {};
+let databases = {};
+let connectionInfo = {};
+let db2Connector;
 
 class MultiDB{
 
@@ -16,7 +16,7 @@ class MultiDB{
       encryptor = require('simple-encryptor')(key);
     }
 
-    for(var con in cfg){
+    for(let con in cfg){
 
       databases[con] = cfg[con].type;
       connectionInfo[con] = cfg[con];
@@ -69,6 +69,20 @@ class MultiDB{
   getLikeAll(field, value, caseSensitive){
 
     let mappedObject = connectors[databases[this.getDatabase()]].getLikeAll(this, connectionInfo[this.getDatabase()], field, value, caseSensitive);
+
+    return mappedObject;
+  }
+
+  getAllUp(field){
+
+    let mappedObject = connectors[databases[this.getDatabase()]].getAllUp(this, connectionInfo[this.getDatabase()], field);
+
+    return mappedObject;
+  }
+
+  getAllDown(field){
+
+    let mappedObject = connectors[databases[this.getDatabase()]].getAllDown(this, connectionInfo[this.getDatabase()], field);
 
     return mappedObject;
   }

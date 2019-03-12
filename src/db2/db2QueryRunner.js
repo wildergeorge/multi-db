@@ -1,11 +1,11 @@
-var db2 = require('ibm_db');
-var Pool = require("ibm_db").Pool
+let db2 = require('ibm_db');
+let Pool = require("ibm_db").Pool
    ,pool = new Pool();
 //db2.debug(true)
 
 function db2ExecuteQueryFirst(db2ConnectionString, db2Query, db2Variables){
 
-  var db2ReturnObject = {};
+  let db2ReturnObject = {};
 
   return new Promise((resolve, reject) => {
 
@@ -67,7 +67,7 @@ function db2ExecuteQueryFirst(db2ConnectionString, db2Query, db2Variables){
 
 function db2ExecuteQuery(db2ConnectionString, db2Query, db2Variables){
 
-  var db2ReturnObject = {};
+  let db2ReturnObject = {};
 
   return new Promise((resolve, reject) => {
 
@@ -134,7 +134,7 @@ function db2ExecuteQuery(db2ConnectionString, db2Query, db2Variables){
 
 function db2ExecuteNonQuery(db2ConnectionString, db2Query, db2Variables){
 
-  var db2ReturnObject = {};
+  let db2ReturnObject = {};
 
   return new Promise((resolve, reject) => {
 
